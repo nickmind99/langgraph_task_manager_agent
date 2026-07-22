@@ -30,7 +30,7 @@ export const StateSchema = z.object({
 export type State = z.infer<typeof StateSchema>;
 
 // initial state function
-export const initialState = (input: string): State => ({
+export const getInitialState = (input: string): State => ({
   input,
   status: "planned",
 });
