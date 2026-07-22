@@ -37,7 +37,7 @@ const graph = builder.compile({
 
 const toThreadId = () => `t_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
 
-const runAgent = async (
+export const runAgent = async (
   input: string,
 ): Promise<{ interrupt: { threadId: string; steps: string[] } } | { final: State }> => {
   const threadId = toThreadId();
@@ -65,7 +65,10 @@ const runAgent = async (
   };
 };
 
-const resumeAgent = async (approveData: { threadId: string; approve: boolean }): Promise<State> => {
+export const resumeAgent = async (approveData: {
+  threadId: string;
+  approve: boolean;
+}): Promise<State> => {
   const { threadId, approve } = approveData;
   const config = { configurable: { thread_id: threadId } };
 

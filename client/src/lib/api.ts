@@ -1,12 +1,4 @@
-import type { FinalView, InterruptView } from "./types";
-
 const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-
-type AgentResponse<T> = {
-  status: "ok" | "error";
-  data?: T;
-  error?: string;
-};
 
 export async function startAgent(input: string) {
   const res = await fetch(`${BASE}/agent`, {
@@ -19,11 +11,20 @@ export async function startAgent(input: string) {
 
   if (!res.ok) throw new Error(`Start agent failed: ${res.status}`);
 
-  return res.json() as Promise<
-    AgentResponse<
-      { kind: "final"; final: FinalView } | { kind: "needs_approval"; interrupt: InterruptView }
-    >
-  >;
+  return res.json() as Promise<{
+    status: "ok" | "error";
+    data?:
+      | { kind: "final"; final: any }
+      | {
+          kind: "needs_approval";
+          interrupt: {
+            threadId: string;
+            steps: string[];
+            prompt: string;
+          };
+        };
+    error?: string;
+  }>;
 }
 
 export async function approveAgent(threadId: string, approve: boolean) {
@@ -37,5 +38,9 @@ export async function approveAgent(threadId: string, approve: boolean) {
 
   if (!res.ok) throw new Error(`Approve step failed: ${res.status}`);
 
-  return res.json() as Promise<AgentResponse<{ kind: "final"; final: FinalView }>>;
+  return res.json() as Promise<{
+    status: "ok" | "error";
+    data?: { kind: "final"; final: any };
+    error?: string;
+  }>;
 }
