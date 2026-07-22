@@ -28,7 +28,7 @@ builder
   .addEdge("plan", "approve")
   .addEdge("execute", "finalize")
   .addEdge("finalize", END)
-  .addConditionalEdges("approve", (state: State) => (state.approved ? "executed" : "finalized"));
+  .addConditionalEdges("approve", (state: State) => (state.approved ? "execute" : "finalize"));
 
 const checkPointer = new MemorySaver();
 const graph = builder.compile({

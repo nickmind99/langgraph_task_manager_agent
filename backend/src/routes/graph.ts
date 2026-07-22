@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { z } from "zod";
-import { Command } from "@langchain/langgraph";
 import { resumeAgent, runAgent } from "../graph/graph";
 
 const router = Router();
@@ -70,7 +69,7 @@ router.post("/approve", async (req, res) => {
 
   try {
     const { threadId, approve } = parseBody.data;
-    const final = resumeAgent({ threadId, approve });
+    const final = await resumeAgent({ threadId, approve });
 
     return res.status(200).json({
       status: "ok",

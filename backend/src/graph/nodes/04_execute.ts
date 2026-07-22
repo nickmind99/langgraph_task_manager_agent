@@ -57,6 +57,6 @@ export const executeNode = async (state: State) => {
   return {
     results,
     status: "done",
-    messages: `Executed ${results.length} steps`,
+    message: `Executed ${results.length} steps`,
   };
 };

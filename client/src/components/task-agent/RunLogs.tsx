@@ -104,7 +104,7 @@ function RunLogs({
           <div className="flex items-center justify-center">
             <CardTitle className="flex items-center gap-2 text-xl text-green-700">
               <CheckCircle2 className="h-5 w-5 text-green-500" />
-              Execution Result
+              Execution Result!
             </CardTitle>
             <CardContent>
               {final.message && (

@@ -26,7 +26,7 @@ export default function AgentPage() {
       } else if (res.data?.kind === "final") {
         setFinal(res.data?.final);
       } else {
-        throw new Error("Some error occured");
+        throw new Error("Some error occurred");
       }
     } catch (e: any) {
       setFinal({
